@@ -1,24 +1,36 @@
+variables:
+  catalog_name:
+    default: gui_uc_dev
+
 # Deployment target specific values
 targets:
   dev:
+    variables:
+      catalog_name: gui_uc_dev
     resources:
       registered_models:
         model:
           comment: Registered model in Unity Catalog for the "petrobras-demo" ML Project for ${bundle.target} deployment target.
 
   test:
+    variables:
+      catalog_name: gui_uc_dev  
     resources:
       registered_models:
         model:
           comment: Registered model in Unity Catalog for the "petrobras-demo" ML Project for ${bundle.target} deployment target.
 
   staging:
+    variables:
+      catalog_name: gui_uc_dev
     resources:
       registered_models:
         model:
           comment: Registered model in Unity Catalog for the "petrobras-demo" ML Project for ${bundle.target} deployment target.
 
   prod:
+    variables:
+      catalog_name: gui_uc_prod
     resources:
       registered_models:
         model:
@@ -48,7 +60,7 @@ resources:
   registered_models:
       model:
         name: ${var.model_name}
-        catalog_name: ${bundle.target}
+        catalog_name: ${var.catalog_name}
         schema_name: petrobras
         <<: *grants
         depends_on:
