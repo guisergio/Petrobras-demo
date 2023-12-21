@@ -1,5 +1,5 @@
 variables:
-  eviron:
+  environ:
     default: gui_uc_dev
   job-pool-id: 
     default: 1221-161210-cress1-pool-dbyp3ic9
@@ -8,22 +8,22 @@ variables:
 targets:
   dev:
     variables:
-      eviron: gui_uc_dev
+      environ: gui_uc_dev
       job-pool-id: 1221-161210-cress1-pool-dbyp3ic9
 
   test:
     variables:
-      eviron: gui_uc_dev
+      environ: gui_uc_dev
       job-pool-id: 1221-161210-cress1-pool-dbyp3ic9  
 
   staging:
     variables:
-      eviron: gui_uc_dev
+      environ: gui_uc_dev
       job-pool-id: 1221-161210-cress1-pool-dbyp3ic9
 
   prod:
     variables:
-      eviron: gui_uc_prod
+      environ: gui_uc_prod
       job-pool-id: 1221-161210-cress1-pool-dbyp3ic9
       
 new_cluster: &new_cluster

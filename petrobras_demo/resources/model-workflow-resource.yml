@@ -1,5 +1,5 @@
 variables:
-  eviron:
+  environ:
     default: gui_uc_dev
   job-pool-id: 
     default: 1221-161210-cress1-pool-dbyp3ic9
@@ -8,22 +8,22 @@ variables:
 targets:
   dev:
     variables:
-      eviron: gui_uc_dev
+      environ: gui_uc_dev
       job-pool-id: 1221-161210-cress1-pool-dbyp3ic9
 
   test:
     variables:
-      eviron: gui_uc_dev
+      environ: gui_uc_dev
       job-pool-id: 1221-161210-cress1-pool-dbyp3ic9  
 
   staging:
     variables:
-      eviron: gui_uc_dev
+      environ: gui_uc_dev
       job-pool-id: 1221-161210-cress1-pool-dbyp3ic9
 
   prod:
     variables:
-      eviron: gui_uc_prod
+      environ: gui_uc_prod
       job-pool-id: 1221-161210-cress1-pool-dbyp3ic9
 
 new_cluster: &new_cluster
@@ -43,7 +43,7 @@ common_permissions: &permissions
 resources:
   jobs:
     model_training_job:
-      name: ${var.eviron}-petrobras-demo-model-training-job
+      name: ${var.environ}-petrobras-demo-model-training-job
       job_clusters:
         - job_cluster_key: model_training_job_cluster
           <<: *new_cluster
@@ -57,7 +57,7 @@ resources:
               # TODO: Update training_data_path
               training_data_path: /databricks-datasets/nyctaxi-with-zipcodes/subsampled
               experiment_name: ${var.experiment_name}
-              model_name: ${var.eviron}.petrobras.${var.model_name}
+              model_name: ${var.environ}.petrobras.${var.model_name}
               # git source information of current ML resource deployment. It will be persisted as part of the workflow run
               git_source_info: url:${bundle.git.origin_url}; branch:${bundle.git.branch}; commit:${bundle.git.commit}
           
