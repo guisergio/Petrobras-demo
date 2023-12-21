@@ -1,24 +1,30 @@
 variables:
   eviron:
     default: gui_uc_dev
+  job-cluster-id: 
+    default: 1221-161210-cress1-pool-dbyp3ic9
 
 # Deployment target specific values
 targets:
   dev:
     variables:
       eviron: gui_uc_dev
+      job-cluster-id: 1221-161210-cress1-pool-dbyp3ic9
 
   test:
     variables:
-      eviron: gui_uc_dev  
+      eviron: gui_uc_dev
+      job-cluster-id: 1221-161210-cress1-pool-dbyp3ic9  
 
   staging:
     variables:
       eviron: gui_uc_dev
+      job-cluster-id: 1221-161210-cress1-pool-dbyp3ic9
 
   prod:
     variables:
       eviron: gui_uc_prod
+      job-cluster-id: 1221-161210-cress1-pool-dbyp3ic9
 
 new_cluster: &new_cluster
   new_cluster:
@@ -39,7 +45,8 @@ resources:
       name: ${var.eviron}-petrobras-demo-model-training-job
       job_clusters:
         - job_cluster_key: model_training_job_cluster
-          <<: *new_cluster
+          existing_cluster_id: ${var.job-cluster-id}
+          #<<: *new_cluster
       tasks:
         - task_key: Train
           job_cluster_key: model_training_job_cluster
