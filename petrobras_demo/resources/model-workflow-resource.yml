@@ -1,3 +1,24 @@
+variables:
+  eviron:
+    default: gui_uc_dev
+
+# Deployment target specific values
+targets:
+  dev:
+    variables:
+      eviron: gui_uc_dev
+
+  test:
+    variables:
+      eviron: gui_uc_dev  
+
+  staging:
+    variables:
+      eviron: gui_uc_dev
+
+  prod:
+    variables:
+      eviron: gui_uc_prod
 
 new_cluster: &new_cluster
   new_cluster:
@@ -15,7 +36,7 @@ common_permissions: &permissions
 resources:
   jobs:
     model_training_job:
-      name: ${bundle.target}-petrobras-demo-model-training-job
+      name: ${var.eviron}-petrobras-demo-model-training-job
       job_clusters:
         - job_cluster_key: model_training_job_cluster
           <<: *new_cluster
@@ -29,7 +50,7 @@ resources:
               # TODO: Update training_data_path
               training_data_path: /databricks-datasets/nyctaxi-with-zipcodes/subsampled
               experiment_name: ${var.experiment_name}
-              model_name: ${bundle.target}.petrobras.${var.model_name}
+              model_name: ${var.eviron}.petrobras.${var.model_name}
               # git source information of current ML resource deployment. It will be persisted as part of the workflow run
               git_source_info: url:${bundle.git.origin_url}; branch:${bundle.git.branch}; commit:${bundle.git.commit}
           
