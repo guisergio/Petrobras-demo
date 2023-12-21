@@ -29,8 +29,8 @@ targets:
 new_cluster: &new_cluster
   new_cluster:
     instance_pool_id: ${var.job-pool-id}
-#    num_workers: 3
-#    spark_version: 13.3.x-cpu-ml-scala2.12
+    num_workers: 3
+    spark_version: 13.3.x-cpu-ml-scala2.12
 #    node_type_id: Standard_D3_v2
 #    custom_tags:
 #      clusterSource: mlops-stack/0.2
