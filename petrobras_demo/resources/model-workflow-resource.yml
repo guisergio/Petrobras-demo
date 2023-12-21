@@ -1,10 +1,39 @@
+variables:
+  environ:
+    default: gui_uc_dev
+  job-pool-id: 
+    default: 1221-161210-cress1-pool-dbyp3ic9
+
+# Deployment target specific values
+targets:
+  dev:
+    variables:
+      environ: gui_uc_dev
+      job-pool-id: 1221-161210-cress1-pool-dbyp3ic9
+
+  test:
+    variables:
+      environ: gui_uc_dev
+      job-pool-id: 1221-161210-cress1-pool-dbyp3ic9  
+
+  staging:
+    variables:
+      environ: gui_uc_dev
+      job-pool-id: 1221-161210-cress1-pool-dbyp3ic9
+
+  prod:
+    variables:
+      environ: gui_uc_prod
+      job-pool-id: 1221-161210-cress1-pool-dbyp3ic9
+
 new_cluster: &new_cluster
   new_cluster:
+    instance_pool_id: ${var.job-pool-id}
     num_workers: 3
     spark_version: 13.3.x-cpu-ml-scala2.12
-    node_type_id: Standard_D3_v2
-    custom_tags:
-      clusterSource: mlops-stack/0.2
+#    node_type_id: Standard_D3_v2
+#    custom_tags:
+#      clusterSource: mlops-stack/0.2
 
 common_permissions: &permissions
   permissions:
@@ -14,7 +43,7 @@ common_permissions: &permissions
 resources:
   jobs:
     model_training_job:
-      name: ${bundle.target}-petrobras-demo-model-training-job
+      name: ${var.environ}-petrobras-demo-model-training-job
       job_clusters:
         - job_cluster_key: model_training_job_cluster
           <<: *new_cluster
@@ -28,7 +57,7 @@ resources:
               # TODO: Update training_data_path
               training_data_path: /databricks-datasets/nyctaxi-with-zipcodes/subsampled
               experiment_name: ${var.experiment_name}
-              model_name: ${bundle.target}.petrobras.${var.model_name}
+              model_name: ${var.environ}.petrobras.${var.model_name}
               # git source information of current ML resource deployment. It will be persisted as part of the workflow run
               git_source_info: url:${bundle.git.origin_url}; branch:${bundle.git.branch}; commit:${bundle.git.commit}
           
